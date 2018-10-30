@@ -829,7 +829,7 @@
         /**
          * Updates gap
          */
-        updateGap() {
+        updateGap: function () {
             if (this.options.direction === this.const.DIRECTION_HORIZONTAL) {
                 this.coords.x_gap = this.$cache.rs.offset().left;
             } else {
