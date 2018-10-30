@@ -178,6 +178,11 @@
         this.is_resize = false;
         this.is_click = false;
 
+        this.const = {
+            DIRECTION_HORIZONTAL: 'horizontal',
+            DIRECTION_VERTICAL: 'vertical'
+        };
+
         options = options || {};
 
         // cache for links to all DOM elements
@@ -765,7 +770,7 @@
                 return;
             }
 
-            var x = e.pageX || e.originalEvent.touches && e.originalEvent.touches[0].pageX;
+            var x = this.getPosition(e);
             this.coords.x_pointer = x - this.coords.x_gap;
 
             this.calc();
@@ -808,6 +813,31 @@
         },
 
         /**
+         * Get position of slider
+         * 
+         * @param e {Object} event object
+         * @returns {Number}
+         */
+        getPosition: function (e) {
+            if (this.options.direction === this.const.DIRECTION_HORIZONTAL) {
+                return e.pageX || e.originalEvent.touches && e.originalEvent.touches[0].pageX;
+            } else if (this.options.direction === this.const.DIRECTION_VERTICAL) {
+                return e.pageY || e.originalEvent.touches && e.originalEvent.touches[0].pageY;
+            }
+        },
+
+        /**
+         * Updates gap
+         */
+        updateGap() {
+            if (this.options.direction === this.const.DIRECTION_HORIZONTAL) {
+                this.coords.x_gap = this.$cache.rs.offset().left;
+            } else {
+                this.coords.x_gap = this.$cache.rs.offset().top;
+            }
+        },
+
+        /**
          * Mousedown or touchstart
          * only for handlers
          *
@@ -816,7 +846,7 @@
          */
         pointerDown: function (target, e) {
             e.preventDefault();
-            var x = e.pageX || e.originalEvent.touches && e.originalEvent.touches[0].pageX;
+            var x = this.getPosition(e);
             if (e.button === 2) {
                 return;
             }
@@ -835,7 +865,7 @@
             this.is_active = true;
             this.dragging = true;
 
-            this.coords.x_gap = this.$cache.rs.offset().left;
+            this.updateGap();
             this.coords.x_pointer = x - this.coords.x_gap;
 
             this.calcPointerPercent();
@@ -859,7 +889,7 @@
          */
         pointerClick: function (target, e) {
             e.preventDefault();
-            var x = e.pageX || e.originalEvent.touches && e.originalEvent.touches[0].pageX;
+            var x = this.getPosition(e);
             if (e.button === 2) {
                 return;
             }
@@ -868,7 +898,7 @@
             this.target = target;
 
             this.is_click = true;
-            this.coords.x_gap = this.$cache.rs.offset().left;
+            this.updateGap();
             this.coords.x_pointer = +(x - this.coords.x_gap).toFixed();
 
             this.force_redraw = true;
