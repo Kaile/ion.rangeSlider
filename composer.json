@@ -1,0 +1,13 @@
+{
+    "name": "kaile/ion.rangeslider",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mikhail Kornilov",
+            "email": "fix-06@yandex.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
