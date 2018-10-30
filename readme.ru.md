@@ -172,6 +172,7 @@ $("#example_id").ionRangeSlider();
 | `onChange` | `-` | `null` | function | Callback. IS called on each values change. Gets all slider data as a 1st attribute |
 | `onFinish` | `-` | `null` | function | Callback. Is called than user releases handle. Gets all slider data as a 1st attribute |
 | `onUpdate` | `-` | `null` | function | Callback. Is called than slider is modified by external methods `update` or `reset` |
+| `direction` | `-` | `horizontal` | string | Set slider direction: `horizontal` or `vertical` |
 
 
 
