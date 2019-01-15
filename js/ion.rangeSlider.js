@@ -279,6 +279,7 @@
         config = {
             skin: "flat",
             type: "single",
+            direction: this.const.DIRECTION_HORIZONTAL,
 
             min: 10,
             max: 100,
@@ -811,13 +812,13 @@
             if ($.contains(this.$cache.cont[0], e.target) || this.dragging) {
                 this.callOnFinish();
             }
-            
+
             this.dragging = false;
         },
 
         /**
          * Get position of slider
-         * 
+         *
          * @param e {Object} event object
          * @returns {Number}
          */
