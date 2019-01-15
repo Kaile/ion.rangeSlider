@@ -1,7 +1,7 @@
 {
-    "name": "ion.rangeSlider-extended",
-    "version": "2.2.1",
-    "homepage": "https://github.com/Kaile/ion.rangeSlider",
+    "name": "ion-rangeslider",
+    "version": "2.3.0",
+    "homepage": "https://github.com/IonDen/ion.rangeSlider",
     "authors": [
         {
             "name": "IonDen",
