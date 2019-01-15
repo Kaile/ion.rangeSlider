@@ -180,7 +180,10 @@
 
         this.const = {
             DIRECTION_HORIZONTAL: 'horizontal',
-            DIRECTION_VERTICAL: 'vertical'
+            DIRECTION_VERTICAL: 'vertical',
+            ALIGN_LEFT: 'left',
+            ALIGN_RIGHT: 'right',
+            ALIGN_CENTER: 'center'
         };
 
         options = options || {};
@@ -298,11 +301,13 @@
             from_min: null,
             from_max: null,
             from_shadow: false,
+            from_align: this.const.ALIGN_CENTER,
 
             to_fixed: false,
             to_min: null,
             to_max: null,
             to_shadow: false,
+            to_align: this.const.ALIGN_CENTER,
 
             prettify_enabled: true,
             prettify_separator: " ",
@@ -830,6 +835,26 @@
             }
         },
 
+        getAlignmentShift(name) {
+            var result = 0;
+            var isFrom = name === 'from';
+            var shift = isFrom ? this.labels.p_from_fake : this.labels.p_to_fake;
+
+            switch (isFrom ? this.options.from_align : this.options.to_align) {
+                case 'right':
+                    result = this.coords.p_handle - shift;
+                    break;
+                case 'center':
+                    result = (this.coords.p_handle - shift) / 2;
+                    break;
+                case 'left':
+                default:
+                    break;
+            }
+
+            return result;
+        },
+
         /**
          * Updates gap
          */
@@ -1330,13 +1355,13 @@
 
                 this.labels.w_from = this.$cache.from.outerWidth(false);
                 this.labels.p_from_fake = this.labels.w_from / this.coords.w_rs * 100;
-                this.labels.p_from_left = this.coords.p_from_fake + (this.coords.p_handle / 2) - (this.labels.p_from_fake / 2);
+                this.labels.p_from_left = this.coords.p_from_fake + this.getAlignmentShift('from');
                 this.labels.p_from_left = this.toFixed(this.labels.p_from_left);
                 this.labels.p_from_left = this.checkEdges(this.labels.p_from_left, this.labels.p_from_fake);
 
                 this.labels.w_to = this.$cache.to.outerWidth(false);
                 this.labels.p_to_fake = this.labels.w_to / this.coords.w_rs * 100;
-                this.labels.p_to_left = this.coords.p_to_fake + (this.coords.p_handle / 2) - (this.labels.p_to_fake / 2);
+                this.labels.p_to_left = this.coords.p_to_fake + this.getAlignmentShift('to');
                 this.labels.p_to_left = this.toFixed(this.labels.p_to_left);
                 this.labels.p_to_left = this.checkEdges(this.labels.p_to_left, this.labels.p_to_fake);
 
