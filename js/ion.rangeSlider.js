@@ -835,7 +835,7 @@
             }
         },
 
-        getAlignmentShift(name) {
+        getAlignmentShift: function (name) {
             var result = 0;
             var isFrom = name === 'from';
             var shift = isFrom ? this.labels.p_from_fake : this.labels.p_to_fake;
